@@ -12,14 +12,14 @@ export default function IndexScreen() {
 
   const checkAuth = async () => {
     try {
-      const token = await AsyncStorage.getItem('token');
-      if (token) {
-        router.replace('/home');
-      } else {
-        router.replace('/signin');
+      const hasSeenOnboarding = await AsyncStorage.getItem('hasSeenOnboarding_v2');
+      if (!hasSeenOnboarding) {
+        router.replace('/onboarding');
+        return;
       }
+      router.replace('/home');
     } catch {
-      router.replace('/signin');
+      router.replace('/home');
     }
   };
 
